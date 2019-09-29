@@ -13,9 +13,9 @@ bash go.sh
 ```
 4. 安装iptables-persistent,打开服务器的服务端口号。
 ```
-apt install iptable-persistent
+apt install iptables-persistent
 iptables -vnL
-iptables -A -p tcp --dport 12345(这是你生成的端口号) -j ACCEPT
+iptables -A INPUT -p tcp --dport 12345(这是你生成的端口号) -j ACCEPT
 iptables -vnL
 sudo dpkg-reconfigure iptables-persistent
 ```
