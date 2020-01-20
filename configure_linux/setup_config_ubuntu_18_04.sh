@@ -63,4 +63,10 @@ echo -e "\033[32m 正在安装git..... \033[0m"
 apt install git
 echo -e "\033[32m git安装成功..... \033[0m"
 
-# 5. 
+# 5. 安装python-pip 
+echo -e "\033[32m 正在安装python-pip文件.....\033[0m"
+apt install python-pip
+echo -e "\033[32m pip安装成功..... \033[0m"
+
+# 6. 安装net-tools
+apt install net-tools
