@@ -144,7 +144,7 @@ int main(int argc, char* argv[]) {
 ```
 
 - 读文件：
-```
+```c++
 touch read_message.cpp
 echo '#include <iostream>
 #include <fstream>
@@ -210,7 +210,7 @@ g++ read_message.cpp addressbook.pb.cc -o read.out $(pkg-config --cflags --libs 
 ```
 
 #### 5. 分别运行write.out和read.out文件进行写与读操作
-```
+```shell
 ./write.out result.protobuf
 ./read.out result.protobuf
 ```
