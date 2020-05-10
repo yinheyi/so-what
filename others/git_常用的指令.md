@@ -141,7 +141,7 @@ bit branch -v
 git branch -vv
 ````
 
-### ** 分支的新建/删除/重命名
+### **分支的新建/删除/重命名**
 - 新建分支
 ````bash
 git branch 新分支名
