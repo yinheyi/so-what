@@ -34,5 +34,43 @@ git 还包含了一部分用于完成底层工作的子命令。 这些命令被
 - logs目录：历史提交记录信息。
 - **index:** 它保存了当前有add进来的文件信息，该信息是累加的. 例如：第一次add了1.c文件然后commit了，接下又add了2.c文件，那么当前index中就保存了1.c与2.c文件的信息。 可以使用命令 `git ls-files --stage` 显示index文件的内容。 刚初始化的git仓库不存在该文件，只有当执行了`git add` 之后才会创建。
 
-## Git对象
+##  git对象
+
+### 数据(blob)对象
+
+Git 是一个内容寻址文件系统，核心部分是一个简单的键值对数据库.  `git hash-object` 指令可以计算给定任何文件的`SHA-1`哈希值.
+
+````bash
+yin@heyi:~/test$ echo "Hello, world" > example.c
+yin@heyi:~/test$ git hash-object example.c
+a5c19667710254f835085b99726e523457150e03
+````
+
+当给定 `-w`参数时，`git hash-object`在计算给定文件`SHA-1`哈希值的同时，会把创建文件对应的blob数据对象写入到repository的数据库内(写到了.git/objects/目录下, 以hash值的前两个字符作目录名，后38个字符作文件名).  **git的数据对象就对应了文件的内容。**
+
+````bash
+yin@heyi:~/test$ find .git/objects/ -type f     # 为空,无输出
+yin@heyi:~/test$ git hash-object -w example.c
+a5c19667710254f835085b99726e523457150e03
+yin@heyi:~/test$ find .git/objects -type f
+.git/objects/a5/c19667710254f835085b99726e523457150e03
+````
+
+可以使用`git cat-file`指令显示对象的类型(`-t`参数),　对象的大小(`-s`参数)或对象的内容(`-p`参数). 接上面的代码，查看哈希值`a5c19667710254f835085b99726e523457150e03`的类型和内容:
+
+````bash
+yin@heyi:~/test$ git cat-file -t a5c19667710254f835085b99726e523457150e03
+blob
+yin@heyi:~/test$ git cat-file -p a5c19667710254f835085b99726e523457150e03
+Hello, world
+````
+
+### 树对象
+
+树对象用于保存的是文件名以及目录名，可以理解为git使用树记住一个版本的目录树结构, 通过树对象，可以把多个文件组织在一起。树对象就对应了目录，blob对象就对应了文件。每一个分支都有一个树对象(使用`branch-name^{tree}`来引用)来记录当前最新的提交.
+
+### 提交(commmit)对象
+
+## git引用
+
 
